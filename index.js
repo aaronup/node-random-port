@@ -27,12 +27,12 @@ var random_port = function() {
         range = opts.range > 0 ? opts.range : 100,
         port = from + ~~(Math.random() * range);
 
-    /** @todo only root can listen to ports less than 1024 */
+    /** @todo only priv user can listen to ports less than 1024 */
 
     var server = net.createServer();
     server.listen(port, function (err) {
         server.once('close', function () {
-            cb(port);
+            cb(null, port); // No Error, return Port
         });
         server.close();
     });
